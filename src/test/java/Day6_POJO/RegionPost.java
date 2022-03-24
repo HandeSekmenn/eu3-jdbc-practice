@@ -1,5 +1,7 @@
 package Day6_POJO;
 
+import com.google.gson.annotations.SerializedName;
+
 public class RegionPost {
 
     private int region_id;

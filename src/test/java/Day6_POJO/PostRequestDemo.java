@@ -148,8 +148,35 @@ public class PostRequestDemo {
                         "data.name", equalTo("MikeEU3"),
                         "data.gender", equalTo("Male"),
                         "data.phone", equalTo(8877445596l));
+    }
+    @Test
+        public void PostNewSpartan4(){
+
+        Spartan spartanEU = new Spartan();
+        spartanEU.setName("MikeEU3");
+        spartanEU.setGender("Male");
+        spartanEU.setPhone(8877445596l);
+
+
+        Response response = given().log().all()
+                .accept(ContentType.JSON)
+                .and()
+                .contentType(ContentType.JSON)
+                .and()
+                    .body(spartanEU) //spartan object to json
+                   .when()
+                   .post("/api/spartans");
+
+        //END OF POST REQUEST
+
+           int id = response.path("data_id");
+            System.out.println("id = " + id);
 
         //after post request, send a get request to generated spartan
+        given().accept(ContentType.JSON)
+        .pathParam("id",id)
+        .when().get("/api/spartans/{id}")
+                .then().statusCode(200).log().all();
 
     }
 

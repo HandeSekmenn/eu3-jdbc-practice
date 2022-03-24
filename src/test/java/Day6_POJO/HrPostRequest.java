@@ -17,12 +17,23 @@ public class HrPostRequest {
     }
 
     @Test
-    public void PostRegion1(){
-        RegionPost regionPost = new RegionPost(10,"Cybertek Germany");
+    public void PostRegion1() {
+        RegionPost regionPost = new RegionPost(10, "Cybertek Germany");
 
-        
+        given().log().all()
+                .and()
+                .accept(ContentType.JSON)
+                .and()
+                .contentType(ContentType.JSON)
+                .body(regionPost)
+                .when().post("/regions/")
+                .then().log().all()
+                .statusCode(201)
+                .body("region_id",is(10));
 
 
 
+
+    }
 
 }
